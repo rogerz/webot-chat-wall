@@ -1,9 +1,9 @@
-var expect = require('expect.js'),
-    webotChatWall = require('..');
+var webotChatWall = require('..');
+
+require('chai').should();
 
 describe('webot-chat-wall', function() {
-  it('should say hello', function(done) {
-    expect(webotChatWall()).to.equal('Hello, world');
-    done();
+  it('should be a webot', function() {
+    webotChatWall().should.to.be.instanceof(require('webot').Webot);
   });
 });
