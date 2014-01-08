@@ -45,4 +45,12 @@ describe('rules', function () {
       done();
     });
   });
+
+  it('should join event', function (done) {
+    reply('join party', function (err, info) {
+      should.not.exist(err);
+      info.reply.should.equal('party');
+      done();
+    });
+  });
 });
