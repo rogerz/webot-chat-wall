@@ -19,6 +19,8 @@ before(function (done) {
     ]).then(function () {
       bot = require('..')(events);
       done();
+    }).fail(function (err) {
+      done(err);
     });
   });
 });
@@ -35,6 +37,9 @@ describe('rules', function () {
     if (typeof info === 'string') {
       info = {text: info};
     }
+    if (!info.session) {
+      info.session = {};
+    }
     bot.reply(info, callback);
   }
 
@@ -46,14 +51,25 @@ describe('rules', function () {
     });
   });
 
-  it('should join event', function (done) {
-    reply('join party', function (err, info) {
-      should.not.exist(err);
-      info.reply.should.equal('Welcome to "party"');
-      done();
+  describe('join event', function () {
+    var info = {};
+    it('should join event', function (done) {
+      info.text = 'join party';
+      reply(info, function (err, info) {
+        should.not.exist(err);
+        info.reply.should.equal('Welcome to "party"');
+        done();
+      });
+    });
+    it('should acknowledge message', function (done) {
+      info.text = 'hello';
+      reply(info, function (err, info) {
+        should.not.exist(err);
+        info.reply.should.equal('[party] copy');
+        done();
+      });
     });
   });
-
   it('should prompt error', function (done) {
     reply('join not existing', function (err, info) {
       should.not.exist(err);
