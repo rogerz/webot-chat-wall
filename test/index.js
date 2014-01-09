@@ -69,7 +69,24 @@ describe('rules', function () {
         done();
       });
     });
+    it('should continue chat', function (done) {
+      info.text = 'hello again';
+      reply(info, function (err, info) {
+        should.not.exist(err);
+        info.reply.should.equal('[party] copy');
+        done();
+      });
+    });
+    it('should exit chat', function (done) {
+      info.text = 'exit';
+      reply(info, function (err, info) {
+        should.not.exist(err);
+        info.reply.should.equal('bye');
+        done();
+      });
+    });
   });
+
   it('should prompt error', function (done) {
     reply('join not existing', function (err, info) {
       should.not.exist(err);
