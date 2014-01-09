@@ -14,12 +14,13 @@
     "webot wechat chat RSVP"
   ],
   "author": "Rogerz Zhang <rogerz.zhang@gmail.com>",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/rogerz/webot-chat-wall/issues"
   },
   "dependencies": {
-    "webot": "git://github.com/rogerz/webot"
+    "webot": "git://github.com/rogerz/webot",
+    "webot-chat": "~0.1.0"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6.4",
