@@ -1,5 +1,5 @@
 var should = require('chai').should();
-
+var util = require('util');
 var bot;
 
 before(function (done) {
@@ -8,7 +8,7 @@ before(function (done) {
   var Event = require('./fixtures/models').Event;
   new Event({
     adapters: {
-      disk: require('sails-disk')
+      memory: require('sails-memory')
     }
   }, function (err, coll) {
     should.not.exist(err);
@@ -49,7 +49,15 @@ describe('rules', function () {
   it('should join event', function (done) {
     reply('join party', function (err, info) {
       should.not.exist(err);
-      info.reply.should.equal('party');
+      info.reply.should.equal('Welcome to "party"');
+      done();
+    });
+  });
+
+  it('should prompt error', function (done) {
+    reply('join not existing', function (err, info) {
+      should.not.exist(err);
+      info.reply.should.equal('No such event "not existing"');
       done();
     });
   });
