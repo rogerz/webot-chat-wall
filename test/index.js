@@ -85,6 +85,14 @@ describe('rules', function () {
         done();
       });
     });
+    it('should return normal', function (done) {
+      info.text = 'hello';
+      reply(info, function (err, info) {
+        should.not.exist(err);
+        info.reply.should.not.equal('[party] copy');
+        done();
+      });
+    });
   });
 
   it('should prompt error', function (done) {
