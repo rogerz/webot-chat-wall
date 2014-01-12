@@ -2,7 +2,9 @@ var Webot = require('webot').Webot;
 var util = require('util');
 var chatBot = require('webot-chat');
 
-module.exports = function createBot(events, guests, messages) {
+// The models are passed via function, since it may not be available when the bot is created
+
+module.exports = function createBot(getModels) {
   var webot = new Webot();
 
   // help rule
@@ -15,6 +17,11 @@ module.exports = function createBot(events, guests, messages) {
   webot.set('join', {
     pattern: /^join\s*(.*)/i,
     handler: function joinHandler(info, next) {
+      var models = getModels();
+      var events = models.event;
+      var guests = models.guest;
+      var messages = models.message;
+
       var name = info.param[1];
       events.findOne({name: name}, function (err, event) {
         if (event) {
