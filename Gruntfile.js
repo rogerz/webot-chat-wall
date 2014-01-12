@@ -38,6 +38,11 @@ module.exports = function (grunt) {
           nospawn: true
         }
       }
+    },
+    bumpup: {
+      files: [
+        'package.json'
+      ]
     }
   });
 
@@ -45,6 +50,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha-cli');
+  grunt.loadNpmTasks('grunt-bumpup');
 
   grunt.registerTask('test', ['complexity', 'jshint', 'mochacli', 'watch']);
   grunt.registerTask('ci', ['complexity', 'jshint', 'mochacli']);
