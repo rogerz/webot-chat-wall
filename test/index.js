@@ -1,28 +1,12 @@
 var should = require('chai').should();
 var util = require('util');
+
 var bot;
 
-before(function (done) {
-  var events;
-
-  var Event = require('./fixtures/models').Event;
-  new Event({
-    adapters: {
-      memory: require('sails-memory')
-    }
-  }, function (err, coll) {
-    should.not.exist(err);
-    events = coll;
-    events.createEach([
-      {name: 'party'},
-      {name: 'opening'}
-    ]).then(function () {
-      bot = require('..')(events);
-      done();
-    }).fail(function (err) {
-      done(err);
-    });
-  });
+before(function () {
+  var events = require('./stubs/events');
+  var messages = require('./stubs/messages');
+  bot = require('..')(events, undefined, messages);
 });
 
 describe('webot-chat-wall', function() {
@@ -31,7 +15,7 @@ describe('webot-chat-wall', function() {
   });
 });
 // excluded temporarily due to the change in API
-xdescribe('rules', function () {
+describe('rules', function () {
 
   function reply(info, callback) {
     if (typeof info === 'string') {
